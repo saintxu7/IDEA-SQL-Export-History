@@ -109,37 +109,44 @@ p = 20
 	
 	
 '------------------------------------------循环读取Overview表内容并记录在Excel-------------------------------------------
-	'create the connection object to the database
-	Set objConn = CreateObject("ADODB.Connection")
+'create the connection object to the database
+
+Set objConn = CreateObject("ADODB.Connection")
 		'create the connection string.  The Data source has to point to the sdf file of the project you want to extract the info
-		connStr = "Provider=Microsoft.SQLSERVER.CE.OLEDB.3.5;Data Source=" & Location  & "\ProjectOverview.sdf;"
+
+connStr = "Provider=Microsoft.SQLSERVER.CE.OLEDB.3.5;Data Source=" & Location  & "\ProjectOverview.sdf;"
 		'connect to the database
-		objConn.open connStr
+
+objConn.open connStr
 		'use SQL to access the information.  In this instance all the fields are accessed, I used the field names instead of using SELECT *.*
-		Set rs = objConn.execute("SELECT TaskName, DateTime, UserName, IDEAScript, HistoryLog, DatabaseGUID, TaskGUID, RecordGUID, AllRecordsUsed, TaskType, TaskStream, Filename, SubFolder, Unsupported, ProjectName, Deleted FROM Overview")'
+
+Set rs = objConn.execute("SELECT TaskName, DateTime, UserName, IDEAScript, HistoryLog, DatabaseGUID, TaskGUID, RecordGUID, AllRecordsUsed, TaskType, TaskStream, Filename, SubFolder, Unsupported, ProjectName, Deleted FROM Overview")'
 			'loop through the table
-			Do While Not rs.EOF
+			
+Do While Not rs.EOF
 				'increment the array to hold the informaiton
-				If Not bFirstTime Then
-					ReDim preserve ProjectInfo(UBound(ProjectInfo) + 1)
-				End If
+				
+If Not bFirstTime Then
+ReDim preserve ProjectInfo(UBound(ProjectInfo) + 1)
+End If
 				'populate the array with the information.
-				ProjectInfo(i).TaskName = rs.Fields("TaskName")
-				ProjectInfo(i).DateTime = rs.Fields("DateTime")
-				ProjectInfo(i).UserName = rs.Fields("UserName")
-				ProjectInfo(i).IDEAScript = rs.Fields("IDEAScript")
-				ProjectInfo(i).HistoryLog = rs.Fields("HistoryLog")
-				ProjectInfo(i).DataBaseGUID = rs.Fields("DatabaseGUID")
-				ProjectInfo(i).TaskGUID = rs.Fields("TaskGUID")
-				ProjectInfo(i).RecordGUID = rs.Fields("RecordGUID")
-				ProjectInfo(i).AllRecordsUsed = rs.Fields("AllRecordsUsed")
-				ProjectInfo(i).TaskType = rs.Fields("TaskType")
-				ProjectInfo(i).TaskStream = rs.Fields("TaskStream")
-				ProjectInfo(i).Filename = rs.Fields("Filename")
-				ProjectInfo(i).SubFolder = rs.Fields("SubFolder")
-				ProjectInfo(i).Unsupported = rs.Fields("Unsupported")
-				ProjectInfo(i).ProjectName = rs.Fields("ProjectName")
-				ProjectInfo(i).Deleted = rs.Fields("Deleted")			
+				
+ProjectInfo(i).TaskName = rs.Fields("TaskName")
+ProjectInfo(i).DateTime = rs.Fields("DateTime")
+ProjectInfo(i).UserName = rs.Fields("UserName")
+ProjectInfo(i).IDEAScript = rs.Fields("IDEAScript")
+ProjectInfo(i).HistoryLog = rs.Fields("HistoryLog")
+ProjectInfo(i).DataBaseGUID = rs.Fields("DatabaseGUID")
+ProjectInfo(i).TaskGUID = rs.Fields("TaskGUID")
+ProjectInfo(i).RecordGUID = rs.Fields("RecordGUID")
+ProjectInfo(i).AllRecordsUsed = rs.Fields("AllRecordsUsed")
+ProjectInfo(i).TaskType = rs.Fields("TaskType")
+ProjectInfo(i).TaskStream = rs.Fields("TaskStream")
+ProjectInfo(i).Filename = rs.Fields("Filename")
+ProjectInfo(i).SubFolder = rs.Fields("SubFolder")
+ProjectInfo(i).Unsupported = rs.Fields("Unsupported")
+ProjectInfo(i).ProjectName = rs.Fields("ProjectName")
+ProjectInfo(i).Deleted = rs.Fields("Deleted")			
 
 '-------------------------更新进度条add this code at the bottom of the loop to update the counter------------
 
